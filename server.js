@@ -16,11 +16,15 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/budget-appdb',
+  {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    // This was needed to npm start.
+    useUnifiedTopology: true
+  }
+);
 
 // routes
 app.use(require("./routes/api.js"));
