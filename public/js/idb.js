@@ -11,11 +11,11 @@ request.onsuccess = function(event) {
     if (navigator.onLine) {
         uploadBudget();
     }
-}
+};
 
 request.onerror = function(event) {
     console.log(event.target.errorCode);
-}
+};
 
 function saveBudget(budget) {
     const transaction = db.transaction(['new_budget'], 'readwrite');
