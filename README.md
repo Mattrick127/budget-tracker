@@ -2,6 +2,8 @@
 
 ## Description
 
+This is my budget-tracker app that can be used to store valuable information regarding financial responsibility.
+
 ## Table of Contents
 
 * [Installation](#installation)
@@ -11,7 +13,13 @@
 
 ## Installation
 
+Simple git clone my respositiory to your local, `npm i` to install all dependencies, and then `npm start` to start the application!
+
 ## Usage
+
+You'll be able to track how well you're saving by adding and subtracting income.
+As well as being a nice web application, this will also be able to be used while offline, in case of emergencies.
+When the internet is restored, any stored data that was used offline on the application will then be submitted to your online submissions.
 
 ## Contributing
 
