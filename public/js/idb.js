@@ -1,15 +1,15 @@
 let db;
-const request = indexedDB.open('budget', 1);
+const request = indexedDB.open('budget_tracker', 1);
 
 request.onupgradeneeded = function(event) {
     const db = event.target.result;
-    db.createObjectStore('new_budget', { autoIncremenet : true });
+    db.createObjectStore('new_transaction', { autoIncremenet : true });
 };
 
 request.onsuccess = function(event) {
     db = event.target.result;
     if (navigator.onLine) {
-        uploadBudget();
+        uploadTransaction();
     }
 };
 
@@ -17,20 +17,20 @@ request.onerror = function(event) {
     console.log(event.target.errorCode);
 };
 
-function saveBudget(budget) {
-    const transaction = db.transaction(['new_budget'], 'readwrite');
+function saveTransaction(transaction) {
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const budgetObjectStore = transaction.objectStore('new_budget');
+    const transactionObjectStore = transaction.objectStore('new_transaction');
 
-    budgetObjectStore.add(budget);
+    transactionObjectStore.add(transaction);
 }
 
-function uploadBudget() {
-    const transaction = db.transaction(['new_budget'], 'readwrite');
+function uploadTransaction() {
+    const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const budgetObjectStore = transaction.objectStore('new_budget');
+    const transactionObjectStore = transaction.objectStore('new_transaction');
 
-    const getAll = budgetObjectStore.getAll();
+    const getAll = transactionObjectStore.getAll();
 
     getAll.onsuccess = function() {
         if (getAll.result.length > 0) {
@@ -47,10 +47,10 @@ function uploadBudget() {
                 if(serverResponse.message) {
                     throw new Error(serverResponse);
                 }
-                const transaction = db.transaction(['new_budget'], 'readwrite');
-                const budgetObjectStore = transaction.objectStore('new_budget');
+                const transaction = db.transaction(['new_transaction'], 'readwrite');
+                const transactionObjectStore = transaction.objectStore('new_transaction');
                 // clear all items in your store
-                budgetObjectStore.clear();
+                transactionObjectStore.clear();
               })
               .catch(err => {
                 // set reference to redirect back here
@@ -62,4 +62,4 @@ function uploadBudget() {
 
 }
 
-window.addEventListener('online', uploadBudget);
+window.addEventListener('online', uploadTransaction);
