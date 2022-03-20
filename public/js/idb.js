@@ -17,20 +17,20 @@ request.onerror = function(event) {
     console.log(event.target.errorCode);
 };
 
-function saveTransaction(transaction) {
+function saveRecord(record) {
     const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const transactionObjectStore = transaction.objectStore('new_transaction');
+    const budgetObjectStore = transaction.objectStore('new_transaction');
 
-    transactionObjectStore.add(transaction);
+    budgetObjectStore.add(record);
 }
 
 function uploadTransaction() {
     const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const transactionObjectStore = transaction.objectStore('new_transaction');
+    const budgetObjectStore = transaction.objectStore('new_transaction');
 
-    const getAll = transactionObjectStore.getAll();
+    const getAll = budgetObjectStore.getAll();
 
     getAll.onsuccess = function() {
         if (getAll.result.length > 0) {
@@ -48,9 +48,9 @@ function uploadTransaction() {
                     throw new Error(serverResponse);
                 }
                 const transaction = db.transaction(['new_transaction'], 'readwrite');
-                const transactionObjectStore = transaction.objectStore('new_transaction');
+                const budgetObjectStore = transaction.objectStore('new_transaction');
                 // clear all items in your store
-                transactionObjectStore.clear();
+                budgetObjectStore.clear();
               })
               .catch(err => {
                 // set reference to redirect back here
