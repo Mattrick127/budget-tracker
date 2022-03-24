@@ -20,7 +20,7 @@ request.onerror = function(event) {
 function saveTransaction(record) {
     const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const budgetObjectStore = transaction.objectStore('new_transaction');
+    const transactionObjectStore = transaction.objectStore('new_transaction');
 
     transactionObjectStore.add(record);
 }
@@ -28,9 +28,9 @@ function saveTransaction(record) {
 function uploadTransaction() {
     const transaction = db.transaction(['new_transaction'], 'readwrite');
 
-    const budgetObjectStore = transaction.objectStore('new_transaction');
+    const transactionObjectStore = transaction.objectStore('new_transaction');
 
-    const getAll = budgetObjectStore.getAll();
+    const getAll = transactionObjectStore.getAll();
 
     getAll.onsuccess = function() {
         if (getAll.result.length > 0) {
